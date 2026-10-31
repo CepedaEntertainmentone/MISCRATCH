@@ -1,0 +1,18 @@
+name: Compilar VST3
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Compilar
+        run: cmake --build build --config Release
+      - name: Guardar el plugin
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiScratch-VST3
+          path: build/MiScratch_artefacts/Release/VST3/MiScratch.vst3
